@@ -3,7 +3,7 @@ import SwiftUI
 #if canImport(UIKit)
 import UIKit
 
-// Found on this blog https://mathijsbernson.nl/posts/using-readable-content-guides-in-swiftui/
+// Credit https://mathijsbernson.nl/posts/using-readable-content-guides-in-swiftui/
 
 struct ReadableContentWidth: ViewModifier {
     private let measureViewController = UIViewController()
@@ -25,18 +25,26 @@ struct ReadableContentWidth: ViewModifier {
     }
 }
 
+#else
+struct ReadableContentWidth: ViewModifier {
+    @ScaledMetric var scale = 1
+    
+    var scalableContentWidth: CGFloat {
+        guard scale <= 1 else {
+            return 624
+        }
+        return min(468 + (156 * scale), 900)
+    }
+
+    func body(content: Content) -> some View {
+        content
+            .frame(maxWidth: scalableContentWidth)
+    }
+}
+#endif
+
 public extension View {
     func readableContentWidth() -> some View {
         modifier(ReadableContentWidth())
     }
 }
-#else
-
-public extension View {
-    // TODO: Figure out how to best handle this on non-UIKit platforms
-    func readableContentWidth() -> some View {
-        self.frame(maxWidth: 624)
-    }
-}
-#endif
-

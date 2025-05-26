@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "RedableContentWidthForSwiftUI",
-    platforms: [.iOS(.v14), .macOS(.v10_15), .tvOS(.v15), .watchOS(.v10), .visionOS(.v1)],
+    platforms: [.iOS(.v14), .macOS(.v11), .tvOS(.v15), .watchOS(.v10), .visionOS(.v1)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
